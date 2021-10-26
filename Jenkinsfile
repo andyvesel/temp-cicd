@@ -11,8 +11,10 @@ pipeline {
     stages {
         stage('Clone Upstream') {
             steps {
-                script {
-                    working_branch = 'git ls-remote --heads origin | grep $(git rev-parse HEAD) | cut -d / -f 3'
+                catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
+                    script {
+                        working_branch = 'git ls-remote --heads origin | grep $(git rev-parse HEAD) | cut -d / -f 3'
+                    }
                 }
                 sh 'echo ${working_branch}'
             }
