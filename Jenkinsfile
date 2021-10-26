@@ -24,6 +24,7 @@ pipeline {
                 catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
                         openshift.withCluster(){
                         openshift.newProject(namespace)
+                        sh 'oc whoami'
                 }
             }
         }
