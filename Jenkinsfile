@@ -24,9 +24,8 @@ pipeline {
                 script {
                     if ( currentBuild.result != null ) { stages_failed = true; return; }
                         catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
-                                cloud 'openshift' 
+                                sh 'echo HELLO' 
                         }
-                    sh 'oc whoami'
                 }
             }
         }
