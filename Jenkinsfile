@@ -32,7 +32,7 @@ pipeline {
                 }
             }
         }
-        stage stage('Build STF Containers') {
+        stage ('Build STF Containers') {
             sh 'echo Building'
         }
     }
