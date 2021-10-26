@@ -32,8 +32,5 @@ pipeline {
                 }
             }
         }
-        stage ('Build STF Containers') {
-            sh 'echo Building'
-        }
     }
 }
