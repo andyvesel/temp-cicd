@@ -20,11 +20,13 @@ pipeline {
             }
         }
         stage ('Create project') {
-            if ( currentBuild.result != null ) { stages_failed = true; return; }
-                catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
-                        openshift.withCluster(){
-                        openshift.newProject(namespace)
-                        sh 'oc whoami'
+            steps {
+                if ( currentBuild.result != null ) { stages_failed = true; return; }
+                    catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
+                            openshift.withCluster(){
+                            openshift.newProject(namespace)
+                    }
+                    sh 'oc whoami'
                 }
             }
         }
