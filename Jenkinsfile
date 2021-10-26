@@ -11,9 +11,8 @@ pipeline {
     stages {
         stage('Clone Upstream') {
             steps {
-                // checkout scm // add it when switch pipeline source to scm
                 sh "ls -la"
-                sh "git ls-remote --heads origin | grep (git rev-parse HEAD) | cut -d / -f 3"
+                sh 'git ls-remote --heads origin | grep $(git rev-parse HEAD) | cut -d / -f 3'
             }
         }
     }
