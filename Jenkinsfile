@@ -25,11 +25,15 @@ pipeline {
                     if ( currentBuild.result != null ) { stages_failed = true; return; }
                         catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
                             openshift.withCluster(){
-                            openshift.newProject(namespace)
-                        }
+                                //openshift.newProject(namespace)
+                                sh 'echo HELLO'
+                            }
                     }
                 }
             }
+        }
+        stage stage('Build STF Containers') {
+            sh 'echo Building'
         }
     }
 }
