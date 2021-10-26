@@ -21,10 +21,12 @@ pipeline {
         }
         stage ('Create project') {
             steps {
-                if ( currentBuild.result != null ) { stages_failed = true; return; }
-                    catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
-                            openshift.withCluster(){
-                            openshift.newProject(namespace)
+                script {
+                    if ( currentBuild.result != null ) { stages_failed = true; return; }
+                        catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
+                                openshift.withCluster(){
+                                openshift.newProject(namespace)
+                        }
                     }
                     sh 'oc whoami'
                 }
