@@ -1,21 +1,20 @@
-#!/usr/bin/env groovy
+pipeline {
+    
+    // parameters {
+    //     string(name: 'namespace', defaultValue: "${env.JOB_BASE_NAME + '-' + env.BUILD_NUMBER}")
+    //     string(name: 'working_branch', defaultValue: 'main')
+    //     booleanParam(name: 'stages_failed', defaultValue: false)
+    // }
+    
+    agent { label 'ocp-agent' }
 
-
-node('master') {
-    checkout scm
-    stage('set Jenkins properties') {
-        properties([
-            pipelineTriggers([
-                issueCommentTrigger('.*run test')
-            ])
-        ])
-    }
-    stage('triggers') {
-        def triggerCause = currentBuild.rawBuild.getCause(org.jenkinsci.plugins.pipeline.github.trigger.IssueCommentCause) 
-        if (triggerCause) {
-            echo("Build started by ${triggerCause.userLogin}, sob wrote \"${triggerCause.comment}\"")
-        } else {
-            echo("build not start by a trigger")
+    stages {
+        stage('Clone Upstream') {
+            steps {
+                // checkout scm // add it when switch pipeline source to scm
+                sh "ls -la"
+                sh "git ls-remote --heads origin"
+            }
         }
     }
 }
