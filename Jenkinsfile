@@ -14,7 +14,7 @@ pipeline {
                 script {
                     working_branch = 'git ls-remote --heads origin | grep $(git rev-parse HEAD) | cut -d / -f 3'
                 }
-                sh '${working_branch}'
+                sh 'echo ${working_branch}'
             }
         }
     }
